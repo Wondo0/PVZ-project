@@ -1,0 +1,31 @@
+main {
+    box-sizing: border-box
+}
+
+body {
+    font-family: sans-serif;
+    font-size: 1rem;
+    line-height: 1.6;
+    color: yellow;
+    background: rebeccapurple;
+}
+
+header {
+    background: darkcyan;
+    color: white;
+    padding: 1.2rem;
+}
+
+#filters-form * {
+    padding: 1px;
+    border: 1px solid white;
+}
+
+.game-card {
+    height: 512px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+.game-card:hover {
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.24), 0 12px 32px 0 rgba(0, 0, 0, 0.22);
+}

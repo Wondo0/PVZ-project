@@ -3,6 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="css/styles.css">
         <title>Каталог настільних ігор</title>
     </head>
     <body>
@@ -16,23 +17,28 @@
             </nav>
         </header>
         <main>
-            <section id="filters">
+            <section class="filters">
                 <h2>Фільтри</h2>
-                <form action="" method="get">
-                    <label for="games">Фільтри для ігор</label>
+                <form action="" method="get" id="filters-form">
+                    <h3>Фільтри для ігор</h3>
+                    <!-- Заглушка фільтрів-->
+                    <input type="radio" class="radio-button--filters" id="radio-type-of-games1">
+                    <input type="radio" class="radio-button--filters" id="radio-type-of-games2">
+                    <input type="radio" class="radio-button--filters" id="radio-type-of-games3">
+                    <input type="text" class="search-input--filters" id="search-for-games4">
                 </form>
             </section>
             <section id="games">
                 <h2>Ігри</h2>
-                <article id="game-1">
+                 <article id="game-1" class="game-card">
                     <img src="" alt="Зображення гри 1">
                     <h3>Гра 1</h3>
                 </article>
-                <article id="game-2">
+                <article id="game-2" class="game-card">
                     <img src="" alt="Зображення гри 2">
                     <h3>Гра 2</h3>
                 </article>
-                <article id="game-3">
+                <article id="game-3" class="game-card">
                     <img src="" alt="Зображення гри 3">
                     <h3>Гра 3</h3>
                 </article>
