@@ -7,50 +7,66 @@
         <title>Каталог настільних ігор</title>
     </head>
     <body>
-        <header id="header">
+        <header id="header-main">
             <h1>
-                «Каталог настільних ігор»
+                Каталог настільних ігор
             </h1>
             <nav>
-                <a href="#strategy">Стратегії</a>
-                <a href="#party">Для вечірок</a>
-                <a href="#family">Сімейні</a>
+                <a href="#strategy" class="nav-category-button">Стратегії</a>
+                <a href="#party" class="nav-category-button">Для вечірок</a>
+                <a href="#family" class="nav-category-button">Сімейні</a>
             </nav>
         </header>
         <main>
-            <section id="filters">
+            <section id="filters-form-games-main" class="filters">
                 <h2>Фільтри</h2>
-                <form action="#" method="get" id="filters-form">
+                <form action="#" method="get" id="filters-form-games">
                     <h3>Фільтри для ігор</h3>
-                    <input type="radio" id="players-2" name="players" value="2">
-                    <label for="players-2">Для 2 гравців</label>
-                    <input type="radio" id="players-3-4" name="players" value="3-4">
-                    <label for="players-3-4">3–4 гравці</label>
-                    <input type="radio" id="players-5-plus" name="players" value="5+">
-                    <label for="players-5-plus">5+ гравців</label>
-
-                    <p>
-                        <label for="search-game">Пошук за назвою:</label>
-                        <input type="text" id="search-game" name="query" placeholder="Введіть назву гри">
-                    </p>
-
-                    <button type="submit">Застосувати</button>
+                    <div class="filters-form-games-buttons">
+                        <p>
+                            <label for="search-game">Пошук за назвою:</label>
+                            <input type="text" id="search-game" name="query" placeholder="Введіть назву гри">
+                        </p>
+                        <div class="filter-button">
+                            <input type="radio" id="players-2" name="players" value="2">
+                            <label for="players-2">Для 2 гравців</label>
+                        </div>
+                        <div class="filter-button">
+                            <input type="radio" id="players-3-4" name="players" value="3-4">
+                            <label for="players-3-4">3–4 гравці</label>
+                        </div>
+                        <div class="filter-button">
+                            <input type="radio" id="players-5-plus" name="players" value="5+">
+                            <label for="players-5-plus">5+ гравців</label>
+                        </div>
+                        <button type="submit">Застосувати</button>
+                    </div>
                 </form>
             </section>
-            <section id="games">
+            <section>
                 <h2>Ігри</h2>
-                 <article id="game-1" class="game-card">
-                    <img src="" alt="Зображення гри 1">
-                    <h3>Гра 1</h3>
-                </article>
-                <article id="game-2" class="game-card">
-                    <img src="" alt="Зображення гри 2">
-                    <h3>Гра 2</h3>
-                </article>
-                <article id="game-3" class="game-card">
-                    <img src="" alt="Зображення гри 3">
-                    <h3>Гра 3</h3>
-                </article>
+                <div class="game-cards-container">
+                    <article id="game-1" class="game-card">
+                        <img src="" alt="Зображення гри 1">
+                        <h3>Гра 1</h3>
+                    </article>
+                    <article id="game-2" class="game-card">
+                        <img src="" alt="Зображення гри 2">
+                        <h3>Гра 2</h3>
+                    </article>
+                    <article id="game-3" class="game-card">
+                        <img src="" alt="Зображення гри 3">
+                        <h3>Гра 3</h3>
+                    </article>
+                    <article id="game-4" class="game-card">
+                        <img src="" alt="Зображення гри 4">
+                        <h3>Гра 4</h3>
+                    </article>
+                    <article id="game-5" class="game-card">
+                        <img src="" alt="Зображення гри 5">
+                        <h3>Гра 5</h3>
+                    </article>
+                </div>
             </section>
         </main>
         <footer>
