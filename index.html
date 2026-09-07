@@ -7,7 +7,6 @@
         <title>Каталог настільних ігор</title>
     </head>
     <body>
-    <!-- Шапка з навігацією та пошуг-->
         <header id="header">
             <h1>
                 «Каталог настільних ігор»
@@ -17,15 +16,23 @@
             </nav>
         </header>
         <main>
-            <section class="filters">
+            <section id="filters">
                 <h2>Фільтри</h2>
-                <form action="" method="get" id="filters-form">
+                <form action="#" method="get">
                     <h3>Фільтри для ігор</h3>
-                    <!-- Заглушка фільтрів-->
-                    <input type="radio" class="radio-button--filters" id="radio-type-of-games1">
-                    <input type="radio" class="radio-button--filters" id="radio-type-of-games2">
-                    <input type="radio" class="radio-button--filters" id="radio-type-of-games3">
-                    <input type="text" class="search-input--filters" id="search-for-games4">
+                    <input type="radio" id="players-2" name="players" value="2">
+                    <label for="players-2">Для 2 гравців</label>
+                    <input type="radio" id="players-3-4" name="players" value="3-4">
+                    <label for="players-3-4">3–4 гравці</label>
+                    <input type="radio" id="players-5-plus" name="players" value="5+">
+                    <label for="players-5-plus">5+ гравців</label>
+
+                    <p>
+                        <label for="search-game">Пошук за назвою:</label>
+                        <input type="text" id="search-game" name="query" placeholder="Введіть назву гри">
+                    </p>
+
+                    <button type="submit">Застосувати</button>
                 </form>
             </section>
             <section id="games">
@@ -44,10 +51,8 @@
                 </article>
             </section>
         </main>
-        <!-- Список карток ігор -->
         <footer>
             Бородін Олександр ІП-54
         </footer>
-        <!-- Підвал -->
     </body>
 </html>
