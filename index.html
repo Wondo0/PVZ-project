@@ -1,76 +1,87 @@
 <!DOCTYPE html>
 <html lang="uk">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="css/styles.css">
-        <title>Каталог настільних ігор</title>
-    </head>
-    <body>
-        <header id="header-main">
-            <h1>
-                Каталог настільних ігор
-            </h1>
-            <nav>
-                <a href="#strategy" class="nav-category-button">Стратегії</a>
-                <a href="#party" class="nav-category-button">Для вечірок</a>
-                <a href="#family" class="nav-category-button">Сімейні</a>
-            </nav>
-        </header>
-        <main>
-            <section id="filters-form-games-main" class="filters">
-                <h2>Фільтри</h2>
-                <form action="#" method="get" id="filters-form-games">
-                    <h3>Фільтри для ігор</h3>
-                    <div class="filters-form-games-buttons">
-                        <p>
-                            <label for="search-game">Пошук за назвою:</label>
-                            <input type="text" id="search-game" name="query" placeholder="Введіть назву гри">
-                        </p>
-                        <div class="filter-button">
-                            <input type="radio" id="players-2" name="players" value="2">
-                            <label for="players-2">Для 2 гравців</label>
-                        </div>
-                        <div class="filter-button">
-                            <input type="radio" id="players-3-4" name="players" value="3-4">
-                            <label for="players-3-4">3–4 гравці</label>
-                        </div>
-                        <div class="filter-button">
-                            <input type="radio" id="players-5-plus" name="players" value="5+">
-                            <label for="players-5-plus">5+ гравців</label>
-                        </div>
-                        <button type="submit">Застосувати</button>
-                    </div>
-                </form>
-            </section>
-            <section>
-                <h2>Ігри</h2>
-                <div class="game-cards-container">
-                    <article id="game-1" class="game-card">
-                        <img src="" alt="Зображення гри 1">
-                        <h3>Гра 1</h3>
-                    </article>
-                    <article id="game-2" class="game-card">
-                        <img src="" alt="Зображення гри 2">
-                        <h3>Гра 2</h3>
-                    </article>
-                    <article id="game-3" class="game-card">
-                        <img src="" alt="Зображення гри 3">
-                        <h3>Гра 3</h3>
-                    </article>
-                    <article id="game-4" class="game-card">
-                        <img src="" alt="Зображення гри 4">
-                        <h3>Гра 4</h3>
-                    </article>
-                    <article id="game-5" class="game-card">
-                        <img src="" alt="Зображення гри 5">
-                        <h3>Гра 5</h3>
-                    </article>
-                </div>
-            </section>
-        </main>
-        <footer>
-            Бородін Олександр ІП-54
-        </footer>
-    </body>
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <link href="https://fonts.googleapis.com" rel="preconnect">
+    <link crossorigin href="https://fonts.gstatic.com" rel="preconnect">
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@700&display=swap" rel="stylesheet">
+    <link href="css/styles.css" rel="stylesheet">
+    <title>Каталог настільних ігор</title>
+</head>
+<body>
+<header id="header-main">
+    <h1>Каталог настільних ігор</h1>
+    <nav>
+        <a class="nav-category-button" href="#strategy">Стратегії</a>
+        <a class="nav-category-button" href="#party">Для вечірок</a>
+        <a class="nav-category-button" href="#family">Сімейні</a>
+    </nav>
+</header>
+<main>
+    <section class="filters" id="filters-form-games-main">
+        <h2>Фільтри</h2>
+        <form action="#" id="filters-form-games" method="get">
+            <h3>Фільтри для ігор</h3>
+            <div class="filters-form-games-buttons">
+                <p>
+                    <label for="search-game">Пошук за назвою:</label>
+                    <input id="search-game" name="query" placeholder="Введіть назву гри" type="text">
+                </p>
+                <label class="filter-button" for="players-2">
+                    <input id="players-2" name="players" type="radio" value="2">
+                    2 гравців
+                </label>
+                <label class="filter-button" for="players-3-4">
+                    <input id="players-3-4" name="players" type="radio" value="3-4">
+                    3–4 гравці
+                </label>
+                <label class="filter-button" for="players-5-plus">
+                    <input id="players-5-plus" name="players" type="radio" value="5+">
+                    5+ гравців
+                </label>
+                <button type="submit">Застосувати</button>
+            </div>
+        </form>
+    </section>
+    <section>
+        <h2>Ігри</h2>
+        <div class="game-cards-container">
+            <article class="game-card" id="game-1">
+                <img alt="Зображення гри 1" src="">
+                <span class="badge">2–5 гравців</span>
+                <h3>Гра 1</h3>
+                <p class="game-desc">Стратегічна гра про будівництво</p>
+            </article>
+            <article class="game-card" id="game-2">
+                <img alt="Зображення гри 2" src="">
+                <span class="badge">4–8 гравців</span>
+                <h3>Гра 2</h3>
+                <p class="game-desc">Командна гра на асоціації.</p>
+            </article>
+            <article class="game-card" id="game-3">
+                <img alt="Зображення гри 3" src="">
+                <span class="badge">3–4 гравці</span>
+                <h3>Гра 3</h3>
+                <p class="game-desc">Розвиток поселень</p>
+            </article>
+            <article class="game-card" id="game-4">
+                <img alt="Зображення гри 4" src="">
+                <span class="badge">1–5 гравців</span>
+                <h3>Гра 4</h3>
+                <p class="game-desc">Сімейна гра</p>
+            </article>
+            <article class="game-card" id="game-5">
+                <img alt="Зображення гри 5" src="">
+                <span class="badge">3–6 гравців</span>
+                <h3>Гра 5</h3>
+                <p class="game-desc">Гра на інтуїцію</p>
+            </article>
+        </div>
+    </section>
+</main>
+<footer>
+    Бородін Олександр ІП-54
+</footer>
+</body>
 </html>
