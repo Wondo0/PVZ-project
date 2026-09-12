@@ -29,6 +29,7 @@ header {
     color: white;
     padding: 1.2rem;
     justify-content: space-between;
+    align-items: center;
 }
 
 header nav {
@@ -36,6 +37,7 @@ header nav {
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+    gap: 0.5rem;
 }
 
 .nav-category-button {
@@ -72,8 +74,9 @@ header nav {
 }
 
 .game-card img {
+    object-fit: cover;
     width: 100%;
-    height: auto;
+    aspect-ratio: 1 / 1;
     background-color: darkcyan;
     border-radius: 6px;
 }
