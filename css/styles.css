@@ -73,6 +73,8 @@ header nav {
 }
 
 .filter-button {
+    border: 1px solid #d1d5db;
+    border-radius: 12px;
     min-height: 44px;
     min-width: 44px;
     padding: 0 3px;
@@ -95,7 +97,6 @@ header nav {
     border-color: #c2410c;
     border-radius: 12px;
     color: #c2410c;
-    font-weight: 700;
 }
 
 .filter-button:hover {
