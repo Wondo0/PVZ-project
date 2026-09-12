@@ -5,6 +5,7 @@
 main {
     margin: 0 auto;
     padding: 0 1rem;
+    max-width: 1280px;
 }
 
 
@@ -27,6 +28,14 @@ header {
     padding: 1.2rem;
 }
 
+header nav a {
+    color: white;
+    margin-right: 1rem;
+}
+header nav a:last-child {
+    margin-right: 0;
+}
+
 #filters-form {
     padding: 0 0.5rem;
 }
@@ -40,12 +49,14 @@ header {
 
 .game-card {
     padding: 0.5rem;
+    width: 280px;
     border-radius: 8px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     margin-bottom: 2rem;
 }
 
 .game-card img {
+    object-fit: cover;
     width: 100%;
     height: 220px;
     background-color: darkcyan;
