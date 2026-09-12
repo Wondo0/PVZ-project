@@ -136,7 +136,7 @@ header nav {
 
 .game-card img {
     width: 100%;
-    min-height: 128px;
+    aspect-ratio: 1 / 1;
     object-fit: cover;
     background-color: #e5e7eb;
     border-radius: 6px;
