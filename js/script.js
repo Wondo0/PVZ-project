@@ -1,35 +1,51 @@
-console.log('script.js підключено');
+const placeholderCard = document.querySelector('#games-list .game-card');
+if (placeholderCard) placeholderCard.remove();
 
-// масив настільних ігор
+const listContainer = document.querySelector('#games-list');
+const gamesCount = document.querySelector('#games-count');
+
 const games = [
-    { title: 'Каркасон', minPlayers: 2, maxPlayers: 5 },
-    { title: 'Кодові імена', minPlayers: 4, maxPlayers: 8 },
-    { title: 'Колонізатори', minPlayers: 3, maxPlayers: 4 },
-    { title: 'Діксіт', minPlayers: 1, maxPlayers: 5 },
-    { title: 'Крила', minPlayers: 3, maxPlayers: 6 }
+    { title: 'Каркасон', minPlayers: 2, maxPlayers: 5, image: 'assets/img/carcas.jpg' },
+    { title: 'Кодові імена', minPlayers: 4, maxPlayers: 8, image: 'assets/img/train.jpg' },
+    { title: 'Колонізатори', minPlayers: 3, maxPlayers: 4, image: 'assets/img/nastilna_hra_catan_ua.jpg' },
+    { title: 'Діксіт', minPlayers: 1, maxPlayers: 5, image: 'assets/img/dixit.jpg' },
+    { title: 'Крила', minPlayers: 3, maxPlayers: 6, image: 'assets/img/3d-wingspan.jpg' }
 ];
 
-// стрілкова функція для перевірки діапазону гравців
-const fitsPlayers = (game, n) => n >= game.minPlayers && n <= game.maxPlayers;
+const fitsPlayers = (game, playersCount) =>
+    playersCount >= game.minPlayers && playersCount <= game.maxPlayers;
 
-// функція для фільтрації та виведення ігор у консоль
-function showGamesForPlayers(gameList, playersCount) {
-    let matchingCount = 0;
-    console.log(`Ігри для ${playersCount} гравців:`);
-    for (const game of gameList) {
-        if (fitsPlayers(game, playersCount)) {
-            console.log(`Підходить: ${game.title} (${game.minPlayers}–${game.maxPlayers} гравців)`);
-            matchingCount++;
-        } else {
-            console.log(`Не підходить: ${game.title} (${game.minPlayers}–${game.maxPlayers} гравців)`);
+// Рендерить каталог ігор.
+function renderGames(gameList) {
+    if (!listContainer || !gamesCount) return;
+
+    listContainer.replaceChildren();
+
+    gameList.forEach(game => {
+        const card = document.createElement('article');
+        card.classList.add('game-card');
+        card.dataset.players = `${game.minPlayers}-${game.maxPlayers}`;
+
+        if (fitsPlayers(game, 4)) {
+            card.classList.add('fits');
         }
-    }
-    console.log(`Підсумкова кількість підходящих ігор: ${matchingCount}`);
+
+        const image = document.createElement('img');
+        image.src = game.image;
+        image.alt = `Ілюстрація до гри «${game.title}»`;
+
+        const title = document.createElement('h3');
+        title.textContent = game.title;
+
+        const players = document.createElement('p');
+        players.classList.add('badge', 'game-players');
+        players.textContent = `${game.minPlayers}–${game.maxPlayers} гравців`;
+
+        card.append(image, title, players);
+        listContainer.append(card);
+    });
+
+    gamesCount.textContent = `Кількість ігор у списку: ${gameList.length}`;
 }
 
-// перевірка роботи стрілкової функції
-console.log(fitsPlayers(games[0], 4));
-console.log(fitsPlayers(games[1], 2));
-
-// виклик основної функції
-showGamesForPlayers(games, 2);
+renderGames(games);

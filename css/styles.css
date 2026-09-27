@@ -165,10 +165,6 @@ header nav {
     font-weight: bold;
 }
 
-/* Нечітка вимога: каталог, яким приємно гортати.
-   Fredoka - заокруглений, дружній шрифт з м'якими формами,
-   що створює ігровий-домашній настрій для назв ігор,
-   не заважаючи читабельності опису */
 .game-card h3 {
     margin: 8px 0;
     font-family: 'Fredoka', cursive, sans-serif;
@@ -236,4 +232,13 @@ footer {
     .game-cards-container {
         grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     }
+}
+
+.game-card.fits {
+    outline: 2px solid #c2410c;
+    outline-offset: 2px;
+}
+
+.game-players {
+    margin-bottom: 0;
 }
