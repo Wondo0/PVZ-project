@@ -14,9 +14,9 @@
 <header id="header-main">
     <h1>Каталог настільних ігор</h1>
     <nav>
-        <a class="nav-category-button" href="#strategy">Стратегії</a>
-        <a class="nav-category-button" href="#party">Для вечірок</a>
-        <a class="nav-category-button" href="#family">Сімейні</a>
+        <a class="nav-category-button" href="#strategy" data-genre="Стратегія">Стратегії</a>
+        <a class="nav-category-button" href="#party" data-genre="Для вечірок">Для вечірок</a>
+        <a class="nav-category-button" href="#family" data-genre="Сімейна">Сімейні</a>
     </nav>
 </header>
 <main>
@@ -81,7 +81,7 @@
                         <option disabled selected value="">Оберіть жанр</option>
                         <option value="Стратегія">Стратегія</option>
                         <option value="Для вечірок">Для вечірок</option>
-                        <option value="Сімейна гра">Сімейна гра</option>
+                        <option value="Сімейна">Сімейна</option>
                         <option value="Кооперативна гра">Кооперативна гра</option>
                     </select>
                 </div>
@@ -90,8 +90,13 @@
             <button type="submit">Додати гру</button>
         </form>
     </section>
-    <section>
+    <section id="games-section">
         <h2>Ігри</h2>
+        <div class="games-toolbar">
+            <button id="refresh-games-button" type="button">Оновити</button>
+            <p class="status-message" id="games-loading" role="status" hidden>Завантаження…</p>
+        </div>
+        <p class="error-message" id="games-error" role="alert" hidden></p>
         <div class="game-cards-container" id="games-list">
             <article class="game-card" id="game-placeholder" aria-hidden="true">
                 <h3>Каталог завантажується…</h3>
