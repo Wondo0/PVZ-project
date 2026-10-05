@@ -30,19 +30,64 @@
                     <input id="search-game" name="query" placeholder="Введіть назву гри" type="text">
                 </p>
                 <label class="filter-button" for="players-2">
-                    <input id="players-2" name="players" type="radio" value="2">
+                    <input id="players-2" name="playerCategory" type="radio" value="2">
                     2 гравців
                 </label>
                 <label class="filter-button" for="players-3-4">
-                    <input id="players-3-4" name="players" type="radio" value="3-4">
+                    <input id="players-3-4" name="playerCategory" type="radio" value="3-4">
                     3–4 гравці
                 </label>
                 <label class="filter-button" for="players-5-plus">
-                    <input id="players-5-plus" name="players" type="radio" value="5+">
+                    <input id="players-5-plus" name="playerCategory" type="radio" value="5+">
                     5+ гравців
                 </label>
+                <p>
+                    <label for="players-count-filter">Кількість гравців:</label>
+                    <select id="players-count-filter" name="players">
+                        <option value="">Усі варіанти</option>
+                        <option value="1">1 гравець</option>
+                        <option value="2">2 гравці</option>
+                        <option value="3">3 гравці</option>
+                        <option value="4">4 гравці</option>
+                        <option value="5">5 гравців</option>
+                        <option value="6">6 гравців</option>
+                        <option value="7">7 гравців</option>
+                        <option value="8">8 гравців</option>
+                    </select>
+                </p>
                 <button type="submit">Застосувати</button>
             </div>
+        </form>
+    </section>
+    <section class="filters" id="add-game-section">
+        <h2>Додати гру</h2>
+        <form action="#" id="add-game-form">
+            <div class="game-form-fields">
+                <div class="game-form-field">
+                    <label for="game-title">Назва гри:</label>
+                    <input id="game-title" name="title" required type="text">
+                </div>
+                <div class="game-form-field">
+                    <label for="min-players">Мінімум гравців:</label>
+                    <input id="min-players" min="1" name="minPlayers" required step="1" type="number">
+                </div>
+                <div class="game-form-field">
+                    <label for="max-players">Максимум гравців:</label>
+                    <input id="max-players" min="1" name="maxPlayers" required step="1" type="number">
+                </div>
+                <div class="game-form-field">
+                    <label for="game-genre">Жанр:</label>
+                    <select id="game-genre" name="genre" required>
+                        <option disabled selected value="">Оберіть жанр</option>
+                        <option value="Стратегія">Стратегія</option>
+                        <option value="Для вечірок">Для вечірок</option>
+                        <option value="Сімейна гра">Сімейна гра</option>
+                        <option value="Кооперативна гра">Кооперативна гра</option>
+                    </select>
+                </div>
+            </div>
+            <p aria-live="polite" class="form-error" id="players-range-error" role="alert"></p>
+            <button type="submit">Додати гру</button>
         </form>
     </section>
     <section>
