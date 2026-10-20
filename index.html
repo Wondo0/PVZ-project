@@ -8,6 +8,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@700&display=swap" rel="stylesheet">
     <link href="css/styles.css" rel="stylesheet">
     <title>Каталог настільних ігор</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <script src="js/script.js" defer></script>
 </head>
 <body>
@@ -19,31 +20,31 @@
         <a class="nav-category-button" href="#family">Сімейні</a>
     </nav>
 </header>
-<main>
+<main id="app">
     <section class="filters" id="filters-form-games-main">
         <h2>Фільтри</h2>
-        <form action="#" id="filters-form-games" method="get">
+        <form action="#" id="filters-form-games" method="get" @submit.prevent>
             <h3>Фільтри для ігор</h3>
             <div class="filters-form-games-buttons">
                 <p>
                     <label for="search-game">Пошук за назвою:</label>
-                    <input id="search-game" name="query" placeholder="Введіть назву гри" type="text">
+                    <input id="search-game" name="query" placeholder="Введіть назву гри" type="text" v-model="search">
                 </p>
                 <label class="filter-button" for="players-2">
-                    <input id="players-2" name="playerCategory" type="radio" value="2">
+                    <input id="players-2" name="playerCategory" type="radio" value="2" v-model="playerCategory" @change="playersCount = ''">
                     2 гравців
                 </label>
                 <label class="filter-button" for="players-3-4">
-                    <input id="players-3-4" name="playerCategory" type="radio" value="3-4">
+                    <input id="players-3-4" name="playerCategory" type="radio" value="3-4" v-model="playerCategory" @change="playersCount = ''">
                     3–4 гравці
                 </label>
                 <label class="filter-button" for="players-5-plus">
-                    <input id="players-5-plus" name="playerCategory" type="radio" value="5+">
+                    <input id="players-5-plus" name="playerCategory" type="radio" value="5+" v-model="playerCategory" @change="playersCount = ''">
                     5+ гравців
                 </label>
                 <p>
                     <label for="players-count-filter">Кількість гравців:</label>
-                    <select id="players-count-filter" name="players">
+                    <select id="players-count-filter" name="players" v-model="playersCount" @change="playerCategory = ''">
                         <option value="">Усі варіанти</option>
                         <option value="1">1 гравець</option>
                         <option value="2">2 гравці</option>
@@ -61,23 +62,23 @@
     </section>
     <section class="filters" id="add-game-section">
         <h2>Додати гру</h2>
-        <form action="#" id="add-game-form">
+        <form action="#" id="add-game-form" @submit.prevent="addGame">
             <div class="game-form-fields">
                 <div class="game-form-field">
                     <label for="game-title">Назва гри:</label>
-                    <input id="game-title" name="title" required type="text">
+                    <input id="game-title" name="title" required type="text" v-model.trim="newGame.title">
                 </div>
                 <div class="game-form-field">
                     <label for="min-players">Мінімум гравців:</label>
-                    <input id="min-players" min="1" name="minPlayers" required step="1" type="number">
+                    <input id="min-players" min="1" name="minPlayers" required step="1" type="number" v-model.number="newGame.minPlayers">
                 </div>
                 <div class="game-form-field">
                     <label for="max-players">Максимум гравців:</label>
-                    <input id="max-players" min="1" name="maxPlayers" required step="1" type="number">
+                    <input id="max-players" min="1" name="maxPlayers" required step="1" type="number" v-model.number="newGame.maxPlayers">
                 </div>
                 <div class="game-form-field">
                     <label for="game-genre">Жанр:</label>
-                    <select id="game-genre" name="genre" required>
+                    <select id="game-genre" name="genre" required v-model="newGame.genre">
                         <option disabled selected value="">Оберіть жанр</option>
                         <option value="Стратегія">Стратегія</option>
                         <option value="Для вечірок">Для вечірок</option>
@@ -86,19 +87,23 @@
                     </select>
                 </div>
             </div>
-            <p aria-live="polite" class="form-error" id="players-range-error" role="alert"></p>
+            <p class="form-error" id="players-range-error" role="alert" v-if="playersRangeError">{{ playersRangeError }}</p>
             <button type="submit">Додати гру</button>
         </form>
     </section>
     <section>
         <h2>Ігри</h2>
+        <p v-if="genreFilter">
+            Жанр: {{ genreFilter }}
+            <button class="reset-genre" type="button" @click="genreFilter = ''">Скинути жанр</button>
+        </p>
         <div class="game-cards-container" id="games-list">
-            <article class="game-card" id="game-placeholder" aria-hidden="true">
-                <h3>Каталог завантажується…</h3>
-                <p class="badge game-players">Ігри з'являться після запуску JavaScript.</p>
-            </article>
+            <game-card v-for="game in filteredGames" :key="game.id"
+                       :title="game.title" :min-players="game.minPlayers" :max-players="game.maxPlayers"
+                       :genre="game.genre" :image="game.image" :fits="fitsCurrentPlayerSelection(game)"
+                       @filter="genreFilter = $event"></game-card>
         </div>
-        <p id="games-count" aria-live="polite">Кількість ігор у списку: 0</p>
+        <p id="games-count" aria-live="polite">Кількість ігор у списку: {{ filteredGames.length }}</p>
     </section>
 </main>
 <footer>
