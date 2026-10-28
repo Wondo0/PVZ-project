@@ -106,14 +106,22 @@
             <button class="reset-genre" type="button" @click="genreFilter = ''">Скинути жанр</button>
         </p>
         <p class="form-error" id="db-error" role="alert" v-if="dbError">{{ dbError }}</p>
-        <div class="game-cards-container" id="games-list">
+        <p v-if="gameOfDay">
+            Гра дня: {{ gameOfDay.title }}
+            <button class="highlight-toggle" type="button" @click="highlightPaused = !highlightPaused">
+                {{ highlightPaused ? 'Запустити підсвічування' : 'Зупинити підсвічування' }}
+            </button>
+        </p>
+        <transition-group name="game-list" tag="div" class="game-cards-container" id="games-list"
+                          :class="{ 'highlight-paused': highlightPaused }">
             <game-card v-for="game in filteredGames" :key="game.id"
                        :title="game.title" :min-players="game.minPlayers" :max-players="game.maxPlayers"
                        :duration="game.duration" :owned="game.owned" :played="game.played"
                        :genre="game.genre" :image="game.image" :fits="fitsCurrentPlayerSelection(game)"
+                       :featured="game === gameOfDay"
                        @filter="genreFilter = $event"
                        @toggle-played="togglePlayed(game)" @remove="removeGame(game)"></game-card>
-        </div>
+        </transition-group>
         <p id="games-count" aria-live="polite">Кількість ігор у списку: {{ filteredGames.length }}</p>
     </section>
 </main>

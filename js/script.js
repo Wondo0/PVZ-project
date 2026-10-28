@@ -95,11 +95,12 @@ async function migrateFromLocalStorage() {
 
 // Компонент картки гри: дані приходять через props, а клік по жанру передає подію filter батьку
 const GameCard = {
-    props: ['title', 'minPlayers', 'maxPlayers', 'duration', 'owned', 'played', 'genre', 'image', 'fits'],
+    props: ['title', 'minPlayers', 'maxPlayers', 'duration', 'owned', 'played', 'genre', 'image', 'fits', 'featured'],
     emits: ['filter', 'toggle-played', 'remove'],
     template: `
-        <article class="game-card" :class="{ fits }" :data-players="minPlayers + '-' + maxPlayers">
+        <article class="game-card" :class="{ fits, 'game-card--featured': featured }" :data-players="minPlayers + '-' + maxPlayers">
             <img v-if="image" :src="image" :alt="'Ілюстрація до гри «' + title + '»'">
+            <p v-if="featured" class="badge game-of-day-badge">Гра дня</p>
             <h3>{{ title }}</h3>
             <button type="button" class="game-genre" @click="$emit('filter', genre)">Жанр: {{ genre }}</button>
             <p class="badge game-players">{{ minPlayers }}–{{ maxPlayers }} гравців</p>
@@ -113,7 +114,6 @@ const GameCard = {
         </article>`
 };
 
-// Функцію renderGames() з практикуму 7 прибрано: тепер список малює компонент GameCard через v-for
 Vue.createApp({
     components: { GameCard },
     data() {
@@ -124,6 +124,7 @@ Vue.createApp({
             playersCount: '',
             playerCategory: '',
             genreFilter: '',
+            highlightPaused: false,
             newGame: { title: '', minPlayers: '', maxPlayers: '', duration: '', owned: false, genre: '' }
         };
     },
@@ -140,6 +141,11 @@ Vue.createApp({
                 const matchesGenre = !this.genreFilter || game.genre === this.genreFilter;
                 return matchesTitle && matchesPlayers && matchesGenre;
             });
+        },
+        // «Гра дня» береться з масиву ігор за числом поточного дня
+        gameOfDay() {
+            if (!this.games.length) return null;
+            return this.games[new Date().getDate() % this.games.length];
         },
         playersRangeError() {
             const { minPlayers, maxPlayers } = this.newGame;

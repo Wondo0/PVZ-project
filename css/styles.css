@@ -229,7 +229,8 @@ header nav {
     text-decoration: underline;
 }
 
-.reset-genre {
+.reset-genre,
+.highlight-toggle {
     margin-left: 0.5rem;
     padding: 6px 12px;
     background-color: #c2410c;
@@ -352,4 +353,43 @@ footer {
     min-height: 0;
     min-width: 0;
     padding: 0;
+}
+
+/* Пульсація картки «гра дня» */
+@keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.04); }
+}
+
+.game-card--featured {
+    border-width: 2px;
+    box-shadow: 0 0 0 4px rgba(194, 65, 12, 0.25);
+    animation: pulse 1.6s ease-in-out infinite;
+}
+
+.highlight-paused .game-card--featured {
+    animation-play-state: paused;
+}
+
+.game-of-day-badge {
+    margin: 8px 0 0;
+    background-color: #c2410c;
+    color: #ffffff;
+}
+
+/* Плавна поява і зникнення карток при застосуванні фільтра */
+.game-list-enter-active,
+.game-list-leave-active {
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    animation: none;
+}
+
+.game-list-enter-from,
+.game-list-leave-to {
+    opacity: 0;
+    transform: translateY(12px) scale(0.95);
+}
+
+.game-list-move {
+    transition: transform 0.3s ease;
 }
