@@ -297,7 +297,7 @@ footer {
 
 @media (min-width: 1024px) {
     .game-form-fields {
-        grid-template-columns: repeat(4, minmax(0, 1fr));
+        grid-template-columns: repeat(3, minmax(0, 1fr));
     }
 }
 
@@ -307,4 +307,49 @@ footer {
 
 .game-players {
     margin-bottom: 0;
+}
+
+.game-info {
+    margin: 4px 0 0;
+    font-size: 0.9rem;
+    color: #4b5563;
+}
+
+.game-played {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    min-height: 44px;
+    cursor: pointer;
+}
+
+.game-played input {
+    width: 1.25rem;
+    height: 1.25rem;
+}
+
+.game-delete {
+    min-height: 44px;
+    min-width: 44px;
+    padding: 8px 16px;
+    background: none;
+    color: #b91c1c;
+    border: 1px solid #b91c1c;
+    border-radius: 4px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.game-form-checkbox {
+    flex-direction: row;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+#add-game-form .game-form-checkbox input {
+    width: 1.25rem;
+    height: 1.25rem;
+    min-height: 0;
+    min-width: 0;
+    padding: 0;
 }

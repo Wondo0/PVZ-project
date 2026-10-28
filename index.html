@@ -77,6 +77,10 @@
                     <input id="max-players" min="1" name="maxPlayers" required step="1" type="number" v-model.number="newGame.maxPlayers">
                 </div>
                 <div class="game-form-field">
+                    <label for="game-duration">Тривалість (хв):</label>
+                    <input id="game-duration" min="1" name="duration" required step="1" type="number" v-model.number="newGame.duration">
+                </div>
+                <div class="game-form-field">
                     <label for="game-genre">Жанр:</label>
                     <select id="game-genre" name="genre" required v-model="newGame.genre">
                         <option disabled selected value="">Оберіть жанр</option>
@@ -85,6 +89,10 @@
                         <option value="Сімейна гра">Сімейна гра</option>
                         <option value="Кооперативна гра">Кооперативна гра</option>
                     </select>
+                </div>
+                <div class="game-form-field game-form-checkbox">
+                    <input id="game-owned" name="owned" type="checkbox" v-model="newGame.owned">
+                    <label for="game-owned">Є в колекції</label>
                 </div>
             </div>
             <p class="form-error" id="players-range-error" role="alert" v-if="playersRangeError">{{ playersRangeError }}</p>
@@ -97,11 +105,14 @@
             Жанр: {{ genreFilter }}
             <button class="reset-genre" type="button" @click="genreFilter = ''">Скинути жанр</button>
         </p>
+        <p class="form-error" id="db-error" role="alert" v-if="dbError">{{ dbError }}</p>
         <div class="game-cards-container" id="games-list">
             <game-card v-for="game in filteredGames" :key="game.id"
                        :title="game.title" :min-players="game.minPlayers" :max-players="game.maxPlayers"
+                       :duration="game.duration" :owned="game.owned" :played="game.played"
                        :genre="game.genre" :image="game.image" :fits="fitsCurrentPlayerSelection(game)"
-                       @filter="genreFilter = $event"></game-card>
+                       @filter="genreFilter = $event"
+                       @toggle-played="togglePlayed(game)" @remove="removeGame(game)"></game-card>
         </div>
         <p id="games-count" aria-live="polite">Кількість ігор у списку: {{ filteredGames.length }}</p>
     </section>
