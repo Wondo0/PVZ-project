@@ -1,0 +1,7 @@
+[
+    { "id": 1, "title": "Каркасон", "players": "2–5", "minPlayers": 2, "maxPlayers": 5, "duration": 45, "owned": true, "played": true, "genre": "Стратегія", "image": "assets/img/carcas.jpg" },
+    { "id": 2, "title": "Кодові імена", "players": "4–8", "minPlayers": 4, "maxPlayers": 8, "duration": 15, "owned": true, "played": false, "genre": "Для вечірок", "image": "assets/img/train.jpg" },
+    { "id": 3, "title": "Колонізатори", "players": "3–4", "minPlayers": 3, "maxPlayers": 4, "duration": 90, "owned": true, "played": false, "genre": "Стратегія", "image": "assets/img/nastilna_hra_catan_ua.jpg" },
+    { "id": 4, "title": "Діксіт", "players": "1–5", "minPlayers": 1, "maxPlayers": 5, "duration": 30, "owned": false, "played": false, "genre": "Для вечірок", "image": "assets/img/dixit.jpg" },
+    { "id": 5, "title": "Крила", "players": "3–6", "minPlayers": 3, "maxPlayers": 6, "duration": 60, "owned": true, "played": false, "genre": "Стратегія", "image": "assets/img/3d-wingspan.jpg" }
+]

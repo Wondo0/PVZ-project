@@ -4,13 +4,9 @@ const DB_NAME = 'BoardGamesDB';
 const STORE_NAME = 'games';
 const STORAGE_KEY = 'boardGames';
 
-const defaultGames = [
-    { id: 1, title: 'Каркасон', players: '2–5', minPlayers: 2, maxPlayers: 5, duration: 45, owned: true, played: true, genre: 'Стратегія', image: 'assets/img/carcas.jpg' },
-    { id: 2, title: 'Кодові імена', players: '4–8', minPlayers: 4, maxPlayers: 8, duration: 15, owned: true, played: false, genre: 'Для вечірок', image: 'assets/img/train.jpg' },
-    { id: 3, title: 'Колонізатори', players: '3–4', minPlayers: 3, maxPlayers: 4, duration: 90, owned: true, played: false, genre: 'Стратегія', image: 'assets/img/nastilna_hra_catan_ua.jpg' },
-    { id: 4, title: 'Діксіт', players: '1–5', minPlayers: 1, maxPlayers: 5, duration: 30, owned: false, played: false, genre: 'Для вечірок', image: 'assets/img/dixit.jpg' },
-    { id: 5, title: 'Крила', players: '3–6', minPlayers: 3, maxPlayers: 6, duration: 60, owned: true, played: false, genre: 'Стратегія', image: 'assets/img/3d-wingspan.jpg' }
-];
+const API_URL = '/api/games';
+const ERROR_NETWORK = 'Не вдалося завантажити каталог ігор. Перевірте підключення до інтернету.';
+const ERROR_SERVER = 'Не вдалося завантажити каталог ігор. Спробуйте пізніше.';
 
 // Читає масив ігор із localStorage, при пошкоджених даних повертає порожній список
 function loadFromLocalStorage() {
@@ -84,9 +80,7 @@ async function migrateFromLocalStorage() {
 
     const items = await getAllItems();
     if (items.length === 0) {
-        const oldGames = loadFromLocalStorage();
-        const games = oldGames.length ? oldGames : defaultGames;
-        for (const game of games) {
+        for (const game of loadFromLocalStorage()) {
             await addItem(game);
         }
     }
@@ -173,6 +167,8 @@ Vue.createApp({
             page: '',
             gameId: null,
             ownedOnly: false,
+            loading: false,
+            loadError: '',
             dbError: '',
             search: '',
             playersCount: '',
@@ -221,8 +217,31 @@ Vue.createApp({
         }
         window.addEventListener('hashchange', this.render);
         this.render();
+        if (this.games.length === 0) {
+            this.loadData();
+        }
     },
     methods: {
+        async loadData() {
+            if (this.loading) return;
+            this.loading = true;
+            this.loadError = '';
+            try {
+                const response = await fetch(API_URL);
+                if (!response.ok) throw new Error(`Сервер відповів кодом ${response.status}`);
+                const data = await response.json();
+                if (!Array.isArray(data)) throw new Error('Неочікуваний формат відповіді');
+                for (const game of data) {
+                    await addItem(game);
+                }
+                this.games = await getAllItems();
+            } catch (error) {
+                console.error('Помилка завантаження каталогу ігор:', error);
+                this.loadError = error instanceof TypeError ? ERROR_NETWORK : ERROR_SERVER;
+            } finally {
+                this.loading = false;
+            }
+        },
         render() {
             const match = matchRoute(location.hash.slice(1) || '/');
             if (match) {

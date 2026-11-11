@@ -101,6 +101,11 @@
     </section>
     <section>
         <h2>{{ ownedOnly ? 'Ігри в колекції' : 'Ігри' }}</h2>
+        <div class="games-toolbar">
+            <button type="button" :disabled="loading" @click="loadData">Оновити</button>
+            <p class="status-message" role="status" v-if="loading">Завантаження…</p>
+        </div>
+        <p class="error-message" role="alert" v-if="loadError">{{ loadError }}</p>
         <p v-if="genreFilter">
             Жанр: {{ genreFilter }}
             <button class="reset-genre" type="button" @click="genreFilter = ''">Скинути жанр</button>
