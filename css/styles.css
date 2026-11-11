@@ -212,6 +212,16 @@ header nav {
     font-weight: 700;
 }
 
+.game-link {
+    color: inherit;
+    text-decoration: none;
+}
+
+.game-link:hover {
+    color: #c2410c;
+    text-decoration: underline;
+}
+
 .game-genre {
     margin: 0;
     padding: 0;

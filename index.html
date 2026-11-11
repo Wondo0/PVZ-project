@@ -15,12 +15,12 @@
 <header id="header-main">
     <h1>Каталог настільних ігор</h1>
     <nav>
-        <a class="nav-category-button" href="#strategy">Стратегії</a>
-        <a class="nav-category-button" href="#party">Для вечірок</a>
-        <a class="nav-category-button" href="#family">Сімейні</a>
+        <a class="nav-category-button" href="#/" data-link>Усі ігри</a>
+        <a class="nav-category-button" href="#/owned" data-link>У колекції</a>
     </nav>
 </header>
 <main id="app">
+    <template v-if="page === 'list'">
     <section class="filters" id="filters-form-games-main">
         <h2>Фільтри</h2>
         <form action="#" id="filters-form-games" method="get" @submit.prevent>
@@ -100,7 +100,7 @@
         </form>
     </section>
     <section>
-        <h2>Ігри</h2>
+        <h2>{{ ownedOnly ? 'Ігри в колекції' : 'Ігри' }}</h2>
         <p v-if="genreFilter">
             Жанр: {{ genreFilter }}
             <button class="reset-genre" type="button" @click="genreFilter = ''">Скинути жанр</button>
@@ -114,7 +114,7 @@
         </p>
         <transition-group name="game-list" tag="div" class="game-cards-container" id="games-list"
                           :class="{ 'highlight-paused': highlightPaused }">
-            <game-card v-for="game in filteredGames" :key="game.id"
+            <game-card v-for="game in filteredGames" :key="game.id" :id="game.id"
                        :title="game.title" :min-players="game.minPlayers" :max-players="game.maxPlayers"
                        :duration="game.duration" :owned="game.owned" :played="game.played"
                        :genre="game.genre" :image="game.image" :fits="fitsCurrentPlayerSelection(game)"
@@ -123,6 +123,21 @@
                        @toggle-played="togglePlayed(game)" @remove="removeGame(game)"></game-card>
         </transition-group>
         <p id="games-count" aria-live="polite">Кількість ігор у списку: {{ filteredGames.length }}</p>
+    </section>
+    </template>
+    <section v-if="page === 'game'">
+        <p><a href="#/" data-link>← До списку ігор</a></p>
+        <h2>Деталі гри</h2>
+        <game-card v-if="currentGame" :id="currentGame.id"
+                   :title="currentGame.title" :min-players="currentGame.minPlayers" :max-players="currentGame.maxPlayers"
+                   :duration="currentGame.duration" :owned="currentGame.owned" :played="currentGame.played"
+                   :genre="currentGame.genre" :image="currentGame.image"
+                   @toggle-played="togglePlayed(currentGame)" @remove="removeGame(currentGame)"></game-card>
+        <p v-else>Гру не знайдено.</p>
+    </section>
+    <section v-if="page === 'not-found'">
+        <h2>Сторінку не знайдено</h2>
+        <p><a href="#/" data-link>На головну</a></p>
     </section>
 </main>
 <footer>

@@ -93,15 +93,66 @@ async function migrateFromLocalStorage() {
     localStorage.setItem('migrated', 'true');
 }
 
+function renderHome(app) {
+    app.page = 'list';
+    app.ownedOnly = false;
+}
+
+function renderGameDetails(app, params) {
+    app.page = 'game';
+    app.gameId = Number(params.id);
+}
+
+function renderOwned(app) {
+    app.page = 'list';
+    app.ownedOnly = true;
+}
+
+// Таблиця маршрутів, кожен шлях має свою view-функцію
+const routes = [
+    { path: '/', view: renderHome },
+    { path: '/games/:id', view: renderGameDetails },
+    { path: '/owned', view: renderOwned }
+];
+
+function matchRoute(path) {
+    const pathParts = path.split('/').filter(Boolean);
+    for (const route of routes) {
+        const routeParts = route.path.split('/').filter(Boolean);
+        if (routeParts.length !== pathParts.length) continue;
+        const params = {};
+        const isMatch = routeParts.every((part, i) => {
+            if (part.startsWith(':')) {
+                params[part.slice(1)] = pathParts[i];
+                return true;
+            }
+            return part === pathParts[i];
+        });
+        if (isMatch) return { view: route.view, params };
+    }
+    return null;
+}
+
+function navigate(path) {
+    location.hash = path;
+}
+
+document.addEventListener('click', (event) => {
+    const link = event.target.closest('a[data-link]');
+    if (!link) return;
+    event.preventDefault();
+    navigate(link.getAttribute('href').slice(1));
+});
+
 // Компонент картки гри: дані приходять через props, а клік по жанру передає подію filter батьку
 const GameCard = {
-    props: ['title', 'minPlayers', 'maxPlayers', 'duration', 'owned', 'played', 'genre', 'image', 'fits', 'featured'],
+    props: ['id', 'title', 'minPlayers', 'maxPlayers', 'duration', 'owned', 'played', 'genre', 'image', 'fits', 'featured'],
     emits: ['filter', 'toggle-played', 'remove'],
     template: `
         <article class="game-card" :class="{ fits, 'game-card--featured': featured }" :data-players="minPlayers + '-' + maxPlayers">
             <img v-if="image" :src="image" :alt="'Ілюстрація до гри «' + title + '»'">
             <p v-if="featured" class="badge game-of-day-badge">Гра дня</p>
-            <h3>{{ title }}</h3>
+            <h3><a class="game-link" :href="'#/games/' + id" data-link>{{ title }}</a></h3>
             <button type="button" class="game-genre" @click="$emit('filter', genre)">Жанр: {{ genre }}</button>
             <p class="badge game-players">{{ minPlayers }}–{{ maxPlayers }} гравців</p>
             <p class="game-info">Тривалість: {{ duration }} хв</p>
@@ -119,6 +170,9 @@ Vue.createApp({
     data() {
         return {
             games: [],
+            page: '',
+            gameId: null,
+            ownedOnly: false,
             dbError: '',
             search: '',
             playersCount: '',
@@ -139,8 +193,12 @@ Vue.createApp({
                     ? this.fitsPlayers(game, playersCount)
                     : !this.playerCategory || this.fitsPlayerCategory(game, this.playerCategory);
                 const matchesGenre = !this.genreFilter || game.genre === this.genreFilter;
-                return matchesTitle && matchesPlayers && matchesGenre;
+                const matchesOwned = !this.ownedOnly || game.owned;
+                return matchesTitle && matchesPlayers && matchesGenre && matchesOwned;
             });
+        },
+        currentGame() {
+            return this.games.find(game => game.id === this.gameId);
         },
         // «Гра дня» береться з масиву ігор за числом поточного дня
         gameOfDay() {
@@ -161,8 +219,18 @@ Vue.createApp({
         } catch (error) {
             this.showDbError(error);
         }
+        window.addEventListener('hashchange', this.render);
+        this.render();
     },
     methods: {
+        render() {
+            const match = matchRoute(location.hash.slice(1) || '/');
+            if (match) {
+                match.view(this, match.params);
+            } else {
+                this.page = 'not-found';
+            }
+        },
         showDbError(error) {
             console.error('Помилка IndexedDB:', error);
             this.dbError = 'Не вдалося відкрити базу IndexedDB. Можливо, браузер блокує сховище, наприклад у режимі приватного перегляду. Зміни не будуть збережені.';
