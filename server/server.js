@@ -4,9 +4,15 @@ const games = require('./games.json');
 
 const app = express();
 const PORT = 3000;
+const root = path.join(__dirname, '..');
 
-// Роздаємо index.html, css, js і assets з кореня проєкту, тому сайт і API на одному порту
-app.use(express.static(path.join(__dirname, '..')));
+// Роздаємо тільки файли сайту, а не весь корінь проєкту разом з кодом сервера
+app.get(['/', '/index.html'], (req, res) => {
+    res.sendFile(path.join(root, 'index.html'));
+});
+app.use('/css', express.static(path.join(root, 'css')));
+app.use('/js', express.static(path.join(root, 'js')));
+app.use('/assets', express.static(path.join(root, 'assets')));
 
 app.get('/api/games', (req, res) => {
     res.json(games);
