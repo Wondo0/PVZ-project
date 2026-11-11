@@ -139,6 +139,7 @@ document.addEventListener('click', (event) => {
 });
 
 // Компонент картки гри: дані приходять через props, а клік по жанру передає подію filter батьку
+// XSS: назва гри виводиться через {{ title }}, а не v-html, тому HTML з назви показується як текст і не виконується
 const GameCard = {
     props: ['id', 'title', 'minPlayers', 'maxPlayers', 'duration', 'owned', 'played', 'genre', 'image', 'fits', 'featured'],
     emits: ['filter', 'toggle-played', 'remove'],

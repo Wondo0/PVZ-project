@@ -6,7 +6,8 @@ const app = express();
 const PORT = 3000;
 const root = path.join(__dirname, '..');
 
-// Роздаємо тільки файли сайту, а не весь корінь проєкту разом з кодом сервера
+// Раніше express.static роздавав увесь корінь проєкту і за адресою /server/server.js був видний код сервера,
+// тому тепер роздаємо тільки файли сайту
 app.get(['/', '/index.html'], (req, res) => {
     res.sendFile(path.join(root, 'index.html'));
 });
